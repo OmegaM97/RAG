@@ -70,10 +70,13 @@ print("\n=== RAG Demo: About me ===\n")
 
 # WITHOUT retrieval
 print("Answer WITHOUT retrieval:\n")
+
+user_question = "who am i"
+
 print(llm.invoke(user_question).content)
 
 # WITH retrieval
-context = retrieve_doc("Addis Ababa University")
+context = retrieve_doc("About me")
 
 rag_prompt = f"""
 Answer the question using ONLY the context below.
