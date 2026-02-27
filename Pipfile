@@ -6,13 +6,21 @@ name = "pypi"
 [packages]
 langchain = "*"
 langchain-community = "*"
-langchain-groq = "*"
+langchain-huggingface = "*"
+langchain-chroma = "*"
 chromadb = "*"
 sentence-transformers = "*"
-python-dotenv = "*"
+transformers = "*"
+torch = "*"
 pypdf = "*"
+unstructured = "*"
+python-dotenv = "*"
+groq = "*"
+tiktoken = "*"
+rich = "*"
+tqdm = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.14"
+python_version = "3.11"
