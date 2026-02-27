@@ -4,21 +4,22 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-langchain = "*"
-langchain-community = "*"
-langchain-huggingface = "*"
 langchain-chroma = "*"
-chromadb = "*"
 sentence-transformers = "*"
 transformers = "*"
 torch = "*"
-pypdf = "*"
 unstructured = "*"
-python-dotenv = "*"
 groq = "*"
 tiktoken = "*"
 rich = "*"
 tqdm = "*"
+langchain = "*"
+langchain-community = "*"
+langchain-huggingface = "*"
+langchain-groq = "*"
+chromadb = "*"
+pypdf = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

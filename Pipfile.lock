@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f3fe8d1535e8cc3d66d696d81520d23b5b58aac9b9e6dbb713f49a7297697c49"
+            "sha256": "8018e5c202160c5aa7838edd30ffe68f89fca51da3b8607c33a598cead52ec89"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -994,12 +994,12 @@
         },
         "groq": {
             "hashes": [
-                "sha256:66cb7bb729e6eb644daac7ce8efe945e99e4eb33657f733ee6f13059ef0c25a9",
-                "sha256:6e22bf92ffad988f01d2d4df7729add66b8fd5dbfb2154b5bbf3af245b72c731"
+                "sha256:7353d6dfb60834fd7aacbb86af106e2dc2aeaff6d0edd65fb2fd0f16bd39314c",
+                "sha256:b49f8c8898c55eaec9f71f1342f3fcacc9560d67a08ce5f35fbfb84e8dacd3da"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.9'",
-            "version": "==1.0.0"
+            "version": "==0.37.1"
         },
         "grpcio": {
             "hashes": [
@@ -1295,6 +1295,15 @@
             ],
             "markers": "python_full_version >= '3.10.0' and python_full_version < '4.0.0'",
             "version": "==1.2.16"
+        },
+        "langchain-groq": {
+            "hashes": [
+                "sha256:1f59f12233e8e6280c968bca6c40a7e5434e971e9a5387ad23c4c64ec776de10",
+                "sha256:67d1d752fb6590be517735947ec49b4ab9ed9191c7cca79f105d227775c67ae5"
+            ],
+            "index": "pypi",
+            "markers": "python_full_version >= '3.10.0' and python_full_version < '4.0.0'",
+            "version": "==1.1.2"
         },
         "langchain-huggingface": {
             "hashes": [
@@ -2999,12 +3008,12 @@
         },
         "pypdf": {
             "hashes": [
-                "sha256:cd25ac508f20b554a9fafd825186e3ba29591a69b78c156783c5d8a2d63a1c0a",
-                "sha256:eca55c78d0ec7baa06f9288e2be5c4e8242d5cbb62c7a4b94f2716f8e50076d2"
+                "sha256:527d6da23274a6c70a9cb59d1986d93946ba8e36a6bc17f3f7cce86331492dda",
+                "sha256:9edd1cd47938bb35ec87795f61225fd58a07cfaf0c5699018ae1a47d6f8ab0e3"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.9'",
-            "version": "==6.7.3"
+            "version": "==6.7.4"
         },
         "pypdfium2": {
             "hashes": [
