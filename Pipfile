@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 langchain-chroma = "*"
-sentence-transformers = "*"
 transformers = "*"
 torch = "*"
 unstructured = "*"
@@ -20,6 +19,13 @@ langchain-groq = "*"
 chromadb = "*"
 pypdf = "*"
 python-dotenv = "*"
+fastapi = "*"
+uvicorn = "*"
+python-multipart = "*"
+sentence-transformers = "*"
+streamlit = "*"
+django = "*"
+djangorestframework = "*"
 
 [dev-packages]
 
