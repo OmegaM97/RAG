@@ -1,88 +1,50 @@
-import os
-from fastapi import FastAPI, UploadFile, File
-from pydantic import BaseModel
-from dotenv import load_dotenv
+import streamlit as st
+import requests
 
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_chroma import Chroma
-from langchain_groq import ChatGroq
+BACKEND_URL = "http://127.0.0.1:8000"
 
-load_dotenv()
+if "history" not in st.session_state:
+    st.session_state.history = []
 
-app = FastAPI()
+st.title("📚 RAG Assistant")
 
-# ---------- Initialize Embeddings & DB ----------
 
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
-)
+uploaded_file = st.file_uploader("Upload a PDF", type="pdf")
 
-db = Chroma(
-    persist_directory="./chroma_db",
-    embedding_function=embeddings
-)
+if uploaded_file:
+    files = {"file": (uploaded_file.name,
+                      uploaded_file.getvalue(), 
+                      "application/pdf")}
+    
+    response = requests.post(f"{BACKEND_URL}/upload", files=files)
+    
+    if response.status_code == 200:
+        st.success(response.json()["message"])
+    else:
+        st.error(response.text)
+question = st.text_input("Ask a question")
 
-retriever = db.as_retriever(search_kwargs={"k": 3})
-
-llm = ChatGroq(
-    model_name="llama-3.1-8b-instant",
-    groq_api_key=os.getenv("GROQ_API_KEY")
-)
-
-# ---------- Request Model ----------
-
-class Question(BaseModel):
-    question: str
-
-# ---------- Upload PDF ----------
-
-@app.post("/upload")
-async def upload_pdf(file: UploadFile = File(...)):
-
-    with open("uploaded.pdf", "wb") as f:
-        f.write(await file.read())
-
-    loader = PyPDFLoader("uploaded.pdf")
-    documents = loader.load()
-
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,
-        chunk_overlap=100
+if st.button("Ask") and question:  
+    response = requests.post(
+        f"{BACKEND_URL}/ask",
+        json={"question": question}
     )
+    
+    answer = response.json()["answer"]
+    
+   
+    st.write("### Answer")
+    st.write(answer)
+    st.session_state.history.insert(0, {
+        "question": question,
+        "answer": answer
+    })
+    
+    st.session_state.history = st.session_state.history[:10]
 
-    chunks = splitter.split_documents(documents)
+st.divider()
+st.subheader(" Search History (Last 10)")
 
-    db.add_documents(chunks)
-
-    return {"message": "Document uploaded and stored!"}
-
-# ---------- Ask Question (RAG) ----------
-
-@app.post("/ask")
-def ask_question(data: Question):
-
-    docs = retriever.invoke(data.question)
-
-    context = ""
-    for i, doc in enumerate(docs):
-        context += f"Source {i+1}:\n{doc.page_content}\n\n"
-
-    prompt = f"""
-Answer using only the sources below.
-If not found, say 'Not in document'.
-
-{context}
-
-Question: {data.question}
-"""
-
-    response = llm.invoke(prompt)
-
-    return {
-        "question": data.question,
-        "answer": response.content
-    }
-
-# streamlit run chat.py
+for item in st.session_state.history:
+    with st.expander(item["question"]):
+        st.write(item["answer"])
